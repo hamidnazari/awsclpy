@@ -1,3 +1,3 @@
-import .awsclpy import AWSCLPy
+from .awsclpy import AWSCLPy
 
 __version__ = '0.1'
