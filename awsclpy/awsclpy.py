@@ -29,7 +29,8 @@ class AWSCLPy(object):
                 os.environ["AWS_ACCESS_KEY_ID"] = self.access_key_id
                 os.environ["AWS_SECRET_ACCESS_KEY"] = self.secret_access_key
 
-        os.environ["AWS_DEFAULT_REGION"] = self.default_region
+        if self.default_region:
+            os.environ["AWS_DEFAULT_REGION"] = self.default_region
 
         args.extend([command, subcommand])
         args.extend(parameters)
