@@ -12,7 +12,7 @@ class AWSCLPy(object):
         self.profile = kwargs.get('profile', None)
         self.access_key_id = kwargs.get('access_key_id', None)
         self.secret_access_key = kwargs.get('secret_access_key', None)
-        self.region = kwargs.get('region', None)
+        self.default_region = kwargs.get('default_region', None)
         self.quiet = kwargs.get('quiet', False)
         self.logging = kwargs.get('logging', False)
         self.logdir = kwargs.get('logdir', './logs')
@@ -29,7 +29,7 @@ class AWSCLPy(object):
                 os.environ["AWS_ACCESS_KEY_ID"] = self.access_key_id
                 os.environ["AWS_SECRET_ACCESS_KEY"] = self.secret_access_key
 
-            os.environ["AWS_DEFAULT_REGION"] = self.region
+        os.environ["AWS_DEFAULT_REGION"] = self.default_region
 
         args.extend([command, subcommand])
         args.extend(parameters)

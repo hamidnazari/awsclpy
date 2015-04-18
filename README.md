@@ -18,7 +18,7 @@ from awsclpy import AWSCLPy
 aws = AWSCLPy(profile = None,
               access_key_id=None,
               secret_access_key=None,
-              region=None,
+              default_region=None,
               quiet = False,
               logging = False,
               logdir = './logs',
