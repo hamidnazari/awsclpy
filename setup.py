@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='awsclpy',
-      version='0.1',
+      version='0.2',
       description='Chain AWSCLI commands.',
       long_description='Run AWSCLI commands and use their outputs in next commands.',
       classifiers=[
