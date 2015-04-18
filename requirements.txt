@@ -1,1 +1,10 @@
-awscli
+awscli==1.7.23
+bcdoc==0.13.0
+botocore==0.104.0
+colorama==0.3.3
+docutils==0.12
+jmespath==0.6.2
+pyasn1==0.1.7
+python-dateutil==2.4.2
+rsa==3.1.4
+six==1.9.0
