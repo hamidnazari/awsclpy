@@ -4,11 +4,15 @@ from subprocess import Popen, PIPE
 from datetime import datetime
 from _utils import log, flatten
 import json
+import os
 
 class AWSCLPy(object):
     def __init__(self, **kwargs):
         super(AWSCLPy, self).__init__()
         self.profile = kwargs.get('profile', None)
+        self.access_key_id = kwargs.get('access_key_id', None)
+        self.secret_access_key = kwargs.get('secret_access_key', None)
+        self.region = kwargs.get('region', None)
         self.quiet = kwargs.get('quiet', False)
         self.logging = kwargs.get('logging', False)
         self.logdir = kwargs.get('logdir', './logs')
@@ -16,7 +20,18 @@ class AWSCLPy(object):
 
     def service_command(self, command, subcommand, *parameters):
         parameters = flatten(parameters)
-        args = ['aws', '--output', 'json', '--profile', self.profile, command, subcommand]
+        args = ['aws', '--output', 'json']
+
+        if self.profile:
+            args.extend(['--profile', self.profile])
+        else:
+            if self.access_key_id and self.secret_access_key:
+                os.environ["AWS_ACCESS_KEY_ID"] = self.access_key_id
+                os.environ["AWS_SECRET_ACCESS_KEY"] = self.secret_access_key
+
+            os.environ["AWS_DEFAULT_REGION"] = self.region
+
+        args.extend([command, subcommand])
         args.extend(parameters)
 
         if self.quiet == False:
