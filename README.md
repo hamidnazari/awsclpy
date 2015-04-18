@@ -16,6 +16,9 @@ account if you have a working AWSCLI.**
 from awsclpy import AWSCLPy
 
 aws = AWSCLPy(profile = None,
+              access_key_id=None,
+              secret_access_key=None,
+              region=None,
               quiet = False,
               logging = False,
               logdir = './logs',
