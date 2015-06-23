@@ -19,6 +19,7 @@ setup(name='awsclpy',
       keywords=[
           'awsclpy',
           'awscli',
+          'aws',
           'amazon web services',
           'command line interface',
       ],
