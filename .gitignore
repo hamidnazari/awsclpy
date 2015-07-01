@@ -3,4 +3,5 @@
 /dist/
 /*.egg-info
 /venv/
-.python-version
+/.python-version
+/.idea
