@@ -67,6 +67,12 @@ class AWSCLPy(object):
     def cloudformation(self, subcommand, *parameters):
         return self.service_command('cloudformation', subcommand, *parameters)
 
+    def cloudfront(self, subcommand, *parameters):
+        return self.service_command('cloudfront', subcommand, *parameters)
+
+    def cloudhsm(self, subcommand, *parameters):
+        return self.service_command('cloudhsm', subcommand, *parameters)
+
     def cloudsearch(self, subcommand, *parameters):
         return self.service_command('cloudsearch', subcommand, *parameters)
 
@@ -85,20 +91,35 @@ class AWSCLPy(object):
     def cognito_sync(self, subcommand, *parameters):
         return self.service_command('cognito-sync', subcommand, *parameters)
 
+    def configservice(self, subcommand, *parameters):
+        return self.service_command('configservice', subcommand, *parameters)
+
     def configure(self, subcommand, *parameters):
         return self.service_command('configure', subcommand, *parameters)
 
     def datapipeline(self, subcommand, *parameters):
         return self.service_command('datapipeline', subcommand, *parameters)
 
+    def deploy(self, subcommand, *parameters):
+        return self.service_command('deploy', subcommand, *parameters)
+
     def directconnect(self, subcommand, *parameters):
         return self.service_command('directconnect', subcommand, *parameters)
+
+    def ds(self, subcommand, *parameters):
+        return self.service_command('ds', subcommand, *parameters)
 
     def dynamodb(self, subcommand, *parameters):
         return self.service_command('dynamodb', subcommand, *parameters)
 
     def ec2(self, subcommand, *parameters):
         return self.service_command('ec2', subcommand, *parameters)
+
+    def ecs(self, subcommand, *parameters):
+        return self.service_command('ecs', subcommand, *parameters)
+
+    def efs(self, subcommand, *parameters):
+        return self.service_command('efs', subcommand, *parameters)
 
     def elasticache(self, subcommand, *parameters):
         return self.service_command('elasticache', subcommand, *parameters)
@@ -115,6 +136,12 @@ class AWSCLPy(object):
     def emr(self, subcommand, *parameters):
         return self.service_command('emr', subcommand, *parameters)
 
+    def glacier(self, subcommand, *parameters):
+        return self.service_command('glacier', subcommand, *parameters)
+
+    def help(self, subcommand, *parameters):
+        return self.service_command('help', subcommand, *parameters)
+
     def iam(self, subcommand, *parameters):
         return self.service_command('iam', subcommand, *parameters)
 
@@ -124,8 +151,17 @@ class AWSCLPy(object):
     def kinesis(self, subcommand, *parameters):
         return self.service_command('kinesis', subcommand, *parameters)
 
+    def kms(self, subcommand, *parameters):
+        return self.service_command('kms', subcommand, *parameters)
+
+    def Lambda(self, subcommand, *parameters):
+        return self.service_command('lambda', subcommand, *parameters)
+
     def logs(self, subcommand, *parameters):
         return self.service_command('logs', subcommand, *parameters)
+
+    def machinelearning(self, subcommand, *parameters):
+        return self.service_command('machinelearning', subcommand, *parameters)
 
     def opsworks(self, subcommand, *parameters):
         return self.service_command('opsworks', subcommand, *parameters)
@@ -148,6 +184,9 @@ class AWSCLPy(object):
     def s3api(self, subcommand, *parameters):
         return self.service_command('s3api', subcommand, *parameters)
 
+    def sdb(self, subcommand, *parameters):
+        return self.service_command('sdb', subcommand, *parameters)
+
     def ses(self, subcommand, *parameters):
         return self.service_command('ses', subcommand, *parameters)
 
@@ -156,6 +195,9 @@ class AWSCLPy(object):
 
     def sqs(self, subcommand, *parameters):
         return self.service_command('sqs', subcommand, *parameters)
+
+    def ssm(self, subcommand, *parameters):
+        return self.service_command('ssm', subcommand, *parameters)
 
     def storagegateway(self, subcommand, *parameters):
         return self.service_command('storagegateway', subcommand, *parameters)
@@ -168,3 +210,6 @@ class AWSCLPy(object):
 
     def swf(self, subcommand, *parameters):
         return self.service_command('swf', subcommand, *parameters)
+
+    def workspaces(self, subcommand, *parameters):
+        return self.service_command('workspaces', subcommand, *parameters)
