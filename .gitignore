@@ -5,3 +5,4 @@
 /venv/
 /.python-version
 /.idea
+/.coverage
