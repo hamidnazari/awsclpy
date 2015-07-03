@@ -1,5 +1,6 @@
 import os
 import collections
+from six import string_types
 
 def log(log, time, logdir):
     if not os.path.exists(logdir):
@@ -14,7 +15,7 @@ def log(log, time, logdir):
 # By Cristian http://stackoverflow.com/a/2158532/227992
 def flatten(l):
     for el in l:
-        if isinstance(el, collections.Iterable) and not isinstance(el, basestring):
+        if isinstance(el, collections.Iterable) and not isinstance(el, string_types):
             for sub in flatten(el):
                 yield sub
         else:

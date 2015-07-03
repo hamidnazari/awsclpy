@@ -2,7 +2,7 @@
 
 from subprocess import Popen, PIPE
 from datetime import datetime
-from utils import log, flatten
+from .utils import log, flatten
 import json
 import os
 
