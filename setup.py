@@ -2,7 +2,7 @@ import pip
 from setuptools import setup
 
 setup(name='awsclpy',
-      version='0.3.5',
+      version='0.4',
       description='Chain AWSCLI commands in Python.',
       long_description='Run AWSCLI commands and use their outputs in next ' +
       'commands.',

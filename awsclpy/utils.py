@@ -19,4 +19,4 @@ def flatten(l):
             for sub in flatten(el):
                 yield sub
         else:
-            yield str(el)
+            yield el
