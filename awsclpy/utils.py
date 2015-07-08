@@ -2,6 +2,7 @@ import os
 import collections
 from six import string_types
 
+
 def log(log, time, logdir):
     if not os.path.exists(logdir):
         os.mkdir(logdir)
@@ -12,10 +13,12 @@ def log(log, time, logdir):
     with open('%s/%s' % (logdir, date), 'a') as logfile:
         logfile.write("%s_%s: %s\n" % (date, time, log))
 
+
 # By Cristian http://stackoverflow.com/a/2158532/227992
 def flatten(l):
     for el in l:
-        if isinstance(el, collections.Iterable) and not isinstance(el, string_types):
+        if isinstance(el, collections.Iterable) and \
+                not isinstance(el, string_types):
             for sub in flatten(el):
                 yield sub
         else:

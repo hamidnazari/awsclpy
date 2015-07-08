@@ -97,7 +97,9 @@ class AWSCLPy(object):
         return self.service_command('cloudsearch', subcommand, *parameters)
 
     def cloudsearchdomain(self, subcommand, *parameters):
-        return self.service_command('cloudsearchdomain', subcommand, *parameters)
+        return self.service_command('cloudsearchdomain',
+                                    subcommand,
+                                    *parameters)
 
     def cloudtrail(self, subcommand, *parameters):
         return self.service_command('cloudtrail', subcommand, *parameters)
@@ -106,7 +108,9 @@ class AWSCLPy(object):
         return self.service_command('cloudwatch', subcommand, *parameters)
 
     def cognito_identity(self, subcommand, *parameters):
-        return self.service_command('cognito-identity', subcommand, *parameters)
+        return self.service_command('cognito-identity',
+                                    subcommand,
+                                    *parameters)
 
     def cognito_sync(self, subcommand, *parameters):
         return self.service_command('cognito-sync', subcommand, *parameters)
@@ -145,10 +149,14 @@ class AWSCLPy(object):
         return self.service_command('elasticache', subcommand, *parameters)
 
     def elasticbeanstalk(self, subcommand, *parameters):
-        return self.service_command('elasticbeanstalk', subcommand, *parameters)
+        return self.service_command('elasticbeanstalk',
+                                    subcommand,
+                                    *parameters)
 
     def elastictranscoder(self, subcommand, *parameters):
-        return self.service_command('elastictranscoder', subcommand, *parameters)
+        return self.service_command('elastictranscoder',
+                                    subcommand,
+                                    *parameters)
 
     def elb(self, subcommand, *parameters):
         return self.service_command('elb', subcommand, *parameters)

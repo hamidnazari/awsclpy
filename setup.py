@@ -1,4 +1,3 @@
-import pip
 from setuptools import setup
 
 setup(name='awsclpy',
@@ -33,7 +32,7 @@ setup(name='awsclpy',
       license='MIT',
       packages=['awsclpy'],
       install_requires=[
-        'awscli==1.7.36',
-        'six==1.9.0'
+          'awscli==1.7.36',
+          'six==1.9.0'
       ],
       zip_safe=False)

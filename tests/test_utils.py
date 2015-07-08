@@ -1,5 +1,6 @@
 import unittest
 
+
 class TestUtils(unittest.TestCase):
     def setUp(self):
         from awsclpy.utils import log, flatten
@@ -50,4 +51,3 @@ class TestUtils(unittest.TestCase):
         flatted = self.flatten([[1, 2, ['pi']], 3.14, [[[[[[5]]]], 4, [[6]]]]])
         flatted = list(flatted)
         self.assertEqual(flatted, [1, 2, 'pi', 3.14, 5, 4, 6])
-
