@@ -6,9 +6,6 @@ from .utils import log, flatten
 import json
 import os
 
-DEFAULT_LOGGING = False
-DEFAULT_LOG_DIR = './logs'
-
 
 class AWSCLPy(object):
     def __init__(self, **kwargs):
@@ -18,58 +15,26 @@ class AWSCLPy(object):
         self.secret_access_key = kwargs.get('secret_access_key', None)
         self.default_region = kwargs.get('default_region', None)
         self.quiet = kwargs.get('quiet', False)
-        self.logging = kwargs.get('logging', DEFAULT_LOGGING)
-        self.logdir = kwargs.get('logdir', DEFAULT_LOG_DIR)
+        self.logging = kwargs.get('logging', False)
+        self.logdir = kwargs.get('logdir', './logs')
         self.dry_run = kwargs.get('dry_run', False)
 
-    @staticmethod
-    def __get_base_args(profile=None, access_key_id=None,
-                        secret_access_key=None, default_region=None):
+    def __get_base_args(self):
         args = ['aws', '--output', 'json']
 
-        if profile:
-            args.extend(['--profile', profile])
+        if self.profile:
+            args.extend(['--profile', self.profile])
         else:
-            if access_key_id and secret_access_key:
-                os.environ["AWS_ACCESS_KEY_ID"] = access_key_id
-                os.environ["AWS_SECRET_ACCESS_KEY"] = secret_access_key
+            if self.access_key_id and self.secret_access_key:
+                os.environ["AWS_ACCESS_KEY_ID"] = self.access_key_id
+                os.environ["AWS_SECRET_ACCESS_KEY"] = self.secret_access_key
 
-        if default_region:
-            os.environ["AWS_DEFAULT_REGION"] = default_region
+        if self.default_region:
+            os.environ["AWS_DEFAULT_REGION"] = self.default_region
 
         return args
 
-    @staticmethod
-    def __run(args, logging=DEFAULT_LOGGING, logdir=DEFAULT_LOG_DIR):
-        try:
-            request_datetime = datetime.now()
-            process = Popen(args, stdout=PIPE)
-            out, err = process.communicate()
-            response_datetime = datetime.now()
-
-            if logging:
-                log(' '.join(args), request_datetime, logdir)
-                log(out, response_datetime, logdir)
-
-            if process.returncode == 0 and out:
-                return json.loads(out)
-
-            return process.returncode == 0
-        except Exception as e:
-            print(e)
-
-    def service_command(self, command, subcommand, *parameters):
-        parameters = flatten(parameters)
-        args = AWSCLPy.__get_base_args(
-            profile=self.profile,
-            secret_access_id=self.secret_access_id,
-            secret_access_key=self.secret_access_key,
-            default_region=self.default_region
-        )
-
-        args.extend([command, subcommand])
-        args.extend(parameters)
-
+    def __run(self, args):
         if not self.quiet:
             label = ('Dry-' if self.dry_run else '') + 'Running '
             print(label + ' '.join(args))
@@ -77,9 +42,38 @@ class AWSCLPy(object):
         if self.dry_run:
             return None
 
-        AWSCLPy.__run(args, logdir=self.logdir)
+        try:
+            request_datetime = datetime.now()
+            process = Popen(args, stdout=PIPE)
+            out, err = process.communicate()
+            response_datetime = datetime.now()
+
+            if self.logging:
+                log(' '.join(args), request_datetime, self.logdir)
+                log(out, response_datetime, self.logdir)
+
+            if not out:
+                out = '{}'
+
+            return process.returncode, json.loads(out), err
+        except Exception as e:
+            print(e)
 
         return None
+
+    def service_command(self, command, subcommand, *parameters):
+        parameters = flatten(parameters)
+        args = self.__get_base_args()
+
+        args.extend([command, subcommand])
+        args.extend(parameters)
+
+        returncode, out, err = self.__run(args)
+
+        if returncode == 0 and out:
+            return out
+
+        return returncode == 0
 
     def autoscaling(self, subcommand, *parameters):
         return self.service_command('autoscaling', subcommand, *parameters)
