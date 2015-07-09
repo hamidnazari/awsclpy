@@ -1,8 +1,7 @@
-import pip
 from setuptools import setup
 
 setup(name='awsclpy',
-      version='0.3.1',
+      version='0.4',
       description='Chain AWSCLI commands in Python.',
       long_description='Run AWSCLI commands and use their outputs in next ' +
       'commands.',
@@ -33,7 +32,7 @@ setup(name='awsclpy',
       license='MIT',
       packages=['awsclpy'],
       install_requires=[
-        'awscli==1.7.36',
-        'six==1.9.0'
+          'awscli==1.7.36',
+          'six==1.9.0'
       ],
       zip_safe=False)

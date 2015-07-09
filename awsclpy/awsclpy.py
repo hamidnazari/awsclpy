@@ -6,6 +6,7 @@ from .utils import log, flatten
 import json
 import os
 
+
 class AWSCLPy(object):
     def __init__(self, **kwargs):
         super(AWSCLPy, self).__init__()
@@ -18,8 +19,7 @@ class AWSCLPy(object):
         self.logdir = kwargs.get('logdir', './logs')
         self.dry_run = kwargs.get('dry_run', False)
 
-    def service_command(self, command, subcommand, *parameters):
-        parameters = flatten(parameters)
+    def __get_base_args(self):
         args = ['aws', '--output', 'json']
 
         if self.profile:
@@ -32,11 +32,11 @@ class AWSCLPy(object):
         if self.default_region:
             os.environ["AWS_DEFAULT_REGION"] = self.default_region
 
-        args.extend([command, subcommand])
-        args.extend(parameters)
+        return args
 
-        if self.quiet == False:
-            label = ('Dry-' if self.dry_run else '') + 'Running ';
+    def __run(self, args):
+        if not self.quiet:
+            label = ('Dry-' if self.dry_run else '') + 'Running '
             print(label + ' '.join(args))
 
         if self.dry_run:
@@ -52,14 +52,28 @@ class AWSCLPy(object):
                 log(' '.join(args), request_datetime, self.logdir)
                 log(out, response_datetime, self.logdir)
 
-            if process.returncode == 0 and out:
-                return json.loads(out)
+            if not out:
+                out = '{}'
 
-            return process.returncode == 0
+            return process.returncode, json.loads(out), err
         except Exception as e:
             print(e)
 
         return None
+
+    def service_command(self, command, subcommand, *parameters):
+        parameters = flatten(parameters)
+        args = self.__get_base_args()
+
+        args.extend([command, subcommand])
+        args.extend(parameters)
+
+        returncode, out, err = self.__run(args)
+
+        if returncode == 0 and out:
+            return out
+
+        return returncode == 0
 
     def autoscaling(self, subcommand, *parameters):
         return self.service_command('autoscaling', subcommand, *parameters)
@@ -77,7 +91,9 @@ class AWSCLPy(object):
         return self.service_command('cloudsearch', subcommand, *parameters)
 
     def cloudsearchdomain(self, subcommand, *parameters):
-        return self.service_command('cloudsearchdomain', subcommand, *parameters)
+        return self.service_command('cloudsearchdomain',
+                                    subcommand,
+                                    *parameters)
 
     def cloudtrail(self, subcommand, *parameters):
         return self.service_command('cloudtrail', subcommand, *parameters)
@@ -86,7 +102,9 @@ class AWSCLPy(object):
         return self.service_command('cloudwatch', subcommand, *parameters)
 
     def cognito_identity(self, subcommand, *parameters):
-        return self.service_command('cognito-identity', subcommand, *parameters)
+        return self.service_command('cognito-identity',
+                                    subcommand,
+                                    *parameters)
 
     def cognito_sync(self, subcommand, *parameters):
         return self.service_command('cognito-sync', subcommand, *parameters)
@@ -125,10 +143,14 @@ class AWSCLPy(object):
         return self.service_command('elasticache', subcommand, *parameters)
 
     def elasticbeanstalk(self, subcommand, *parameters):
-        return self.service_command('elasticbeanstalk', subcommand, *parameters)
+        return self.service_command('elasticbeanstalk',
+                                    subcommand,
+                                    *parameters)
 
     def elastictranscoder(self, subcommand, *parameters):
-        return self.service_command('elastictranscoder', subcommand, *parameters)
+        return self.service_command('elastictranscoder',
+                                    subcommand,
+                                    *parameters)
 
     def elb(self, subcommand, *parameters):
         return self.service_command('elb', subcommand, *parameters)

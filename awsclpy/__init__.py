@@ -1,1 +1,1 @@
-from .awsclpy import AWSCLPy
+from .awsclpy import AWSCLPy  # NOQA
